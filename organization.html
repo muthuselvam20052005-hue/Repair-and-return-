@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#123F31">
+<title>Repair & Return Organization</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#123F31; --forest-2:#1E5A46; --mint:#E8F0EB; --paper:#fff; --ink:#10201A;
+  --muted:#52645B; --line:#D3DFD8; --amber:#F4B63F; --amber-soft:#FBE7B5; --coral:#C0412A; --ok:#2F8F64;
+  --display:'Bricolage Grotesque','Trebuchet MS',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#D6E3DC;font-family:Figtree,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--ink);line-height:1.45}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--forest);outline-offset:2px}
+.top :focus-visible,.hero :focus-visible{outline-color:var(--amber)}
+
+.app{max-width:430px;margin:0 auto;min-height:100vh;background:var(--mint);display:flex;flex-direction:column;position:relative;overflow:clip}
+@media(min-width:520px){body{padding:24px 0}.app{min-height:calc(100vh - 48px);border-radius:28px;box-shadow:0 24px 60px rgba(18,63,49,.28)}}
+
+/* header */
+.top{background:var(--forest);color:#fff;padding:16px 18px 18px;border-radius:0 0 22px 22px}
+.app[data-screen=home] .top{border-radius:0;padding-bottom:6px}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.01em}
+.logo{width:32px;height:22px;background:var(--amber);clip-path:polygon(24% 0,100% 0,100% 100%,24% 100%,0 50%);position:relative;flex:none}
+.logo::after{content:"";position:absolute;left:8px;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:var(--forest)}
+.role{display:flex;background:rgba(255,255,255,.12);border-radius:999px;padding:3px}
+.role button{border:0;background:transparent;color:#fff;padding:7px 12px;border-radius:999px;font-size:13px;font-weight:600}
+.role button[aria-pressed=true]{background:var(--amber);color:#2A1E00}
+.pagehead{margin-top:14px}
+.pagehead h1{font-family:var(--display);font-weight:800;font-size:27px;line-height:1.1;margin:0;letter-spacing:-.02em}
+.pagehead p{margin:5px 0 0;color:#BFD6CB;font-size:14.5px}
+
+main{flex:1;padding:16px 16px 28px}
+.app[data-screen=home] main{padding-top:0}
+
+/* hero */
+.hero{background:var(--forest);color:#fff;margin:0 -16px 0;padding:14px 18px 74px;border-radius:0 0 28px 28px}
+.hero .hi{color:#BFD6CB;font-size:14px;margin:6px 0 4px}
+.hero h1{font-family:var(--display);font-weight:800;font-size:38px;line-height:1.03;margin:0 0 10px;letter-spacing:-.03em}
+.hero p.lead{margin:0 0 18px;color:#D5E6DD;font-size:15.5px;max-width:30ch}
+.lift{margin:-56px 0 0;position:relative}
+
+/* tag motif */
+.tag{position:relative;background:var(--amber);color:#2A1E00;border-radius:8px 20px 20px 8px;padding:15px 16px 14px 46px;text-align:left;width:100%;border:0;display:block;box-shadow:0 10px 24px rgba(18,63,49,.22)}
+.tag::before{content:"";position:absolute;left:15px;top:50%;margin-top:-8px;width:16px;height:16px;border-radius:50%;background:var(--forest);box-shadow:inset 0 2px 3px rgba(0,0,0,.45)}
+.tag .id{font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.01em;display:block}
+.tag .what{font-size:14.5px;margin:1px 0 8px;display:block}
+.pill{display:inline-block;background:rgba(18,63,49,.9);color:#fff;border-radius:999px;padding:4px 11px;font-size:12.5px;font-weight:600}
+.pill.soft{background:#DCEFE6;color:var(--forest)}
+.pill.warn{background:#FBE1DA;color:#8E2C18}
+.pill.amber{background:var(--amber-soft);color:#5C4000}
+.swing{transform-origin:18px 50%;animation:swing .9s cubic-bezier(.2,.8,.3,1) both}
+@keyframes swing{0%{transform:rotate(-10deg) translateY(-26px);opacity:0}55%{transform:rotate(3deg);opacity:1}80%{transform:rotate(-1deg)}100%{transform:rotate(0)}}
+
+/* cards + type */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}
+.card h3,.sec h3{font-family:var(--display);font-weight:800;font-size:18px;margin:0 0 6px;letter-spacing:-.01em}
+h2.h{font-family:var(--display);font-weight:800;font-size:22px;margin:22px 2px 4px;letter-spacing:-.015em}
+.muted{color:var(--muted);font-size:14.5px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px}
+.stat .num{font-family:var(--display);font-weight:800;font-size:30px;line-height:1;color:var(--forest);letter-spacing:-.02em}
+.stat .lbl{font-size:13.5px;color:var(--muted);margin-top:5px}
+.stat.dark{background:var(--forest);border-color:var(--forest)}
+.stat.dark .num{color:var(--amber)}.stat.dark .lbl{color:#C7DCD1}
+
+/* buttons */
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:14px 16px;font-weight:700;font-size:15.5px;margin-top:10px;text-align:center;transition:transform .12s}
+.btn:active{transform:scale(.985)}
+.btn.primary{background:var(--forest);color:#fff}
+.btn.amber{background:var(--amber);color:#2A1E00}
+.btn.ghost{background:transparent;color:var(--forest);border:1.5px solid var(--forest)}
+.btn.sm{padding:11px 12px;font-size:14px;margin-top:8px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+
+/* steps (how it works) */
+.flow{display:flex;gap:6px;margin-top:12px}
+.flow div{flex:1;text-align:center;font-size:12.5px;font-weight:600;color:var(--forest)}
+.flow i{display:grid;place-items:center;width:40px;height:40px;margin:0 auto 6px;border-radius:50%;background:var(--mint);font-style:normal;font-size:19px;border:1px solid var(--line)}
+
+/* progress */
+.meter{height:10px;border-radius:999px;background:var(--mint);overflow:hidden;margin:10px 0 6px}
+.meter span{display:block;height:100%;background:var(--forest);border-radius:999px;transition:width .5s}
+
+/* form */
+label.l{display:block;font-weight:700;font-size:14.5px;margin:18px 2px 8px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tile{background:var(--paper);border:1.5px solid var(--line);border-radius:16px;padding:12px 4px 10px;text-align:center;font-size:12.5px;font-weight:600;line-height:1.2}
+.tile b{display:block;font-size:26px;margin-bottom:4px;font-weight:400}
+.tile[aria-pressed=true]{border-color:var(--forest);background:#DCEFE6;box-shadow:inset 0 0 0 1px var(--forest)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--paper);border:1.5px solid var(--line);border-radius:999px;padding:8px 13px;font-size:14px;font-weight:600}
+.chip[aria-pressed=true]{background:var(--forest);border-color:var(--forest);color:#fff}
+input[type=text],input[type=password],select,textarea{width:100%;padding:13px;border:1.5px solid var(--line);border-radius:12px;background:var(--paper);font-size:15.5px}
+textarea{resize:vertical;min-height:70px;margin-top:8px}
+.upload{display:flex;align-items:center;gap:14px;border:2px dashed #9DB8AC;border-radius:16px;padding:16px;background:var(--paper);cursor:pointer}
+.upload .ic{width:54px;height:54px;border-radius:14px;background:var(--mint);display:grid;place-items:center;font-size:24px;flex:none;overflow:hidden}
+.upload img{width:100%;height:100%;object-fit:cover}
+.upload small{color:var(--muted);display:block}
+.seg2{display:flex;gap:8px}
+.seg2 .chip{flex:1;text-align:center}
+.err{color:var(--coral);font-size:13.5px;font-weight:600;margin:6px 2px 0}
+.check{display:flex;gap:10px;align-items:flex-start;margin-top:18px;font-size:14px;color:var(--muted)}
+.check input{width:20px;height:20px;margin-top:1px;accent-color:var(--forest);flex:none}
+
+/* timeline */
+.tl{list-style:none;margin:0;padding:0}
+.tl li{position:relative;padding:0 0 22px 40px}
+.tl li:last-child{padding-bottom:2px}
+.tl li::before{content:"";position:absolute;left:11px;top:24px;bottom:0;width:2px;background:var(--line)}
+.tl li:last-child::before{display:none}
+.tl li.done::before{background:var(--ok)}
+.tl .node{position:absolute;left:0;top:0;width:24px;height:24px;border-radius:50%;border:2px solid var(--line);background:var(--paper);display:grid;place-items:center;font-size:13px;color:#fff}
+.tl li.done .node{background:var(--ok);border-color:var(--ok)}
+.tl li.now .node{box-shadow:0 0 0 5px rgba(47,143,100,.2)}
+.tl b{display:block;font-size:15.5px}
+.tl li:not(.done) b{color:var(--muted)}
+.tl .when{font-size:12.5px;color:var(--muted)}
+.tl p{margin:2px 0 0;font-size:14px;color:var(--muted)}
+.picker{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px}
+.picker .chip{white-space:nowrap}
+
+/* org */
+.stages{display:flex;gap:4px;margin:10px 0}
+.stages span{flex:1;height:6px;border-radius:3px;background:var(--line)}
+.stages span.on{background:var(--ok)}
+.row{display:flex;gap:12px;align-items:flex-start}
+.thumb{width:62px;height:62px;border-radius:14px;background:var(--mint);display:grid;place-items:center;font-size:28px;overflow:hidden;flex:none}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.kv{font-size:14px;color:var(--muted)}
+.kv b{color:var(--ink)}
+.actions{border-top:2px dashed var(--line);margin-top:12px;padding-top:12px}
+.bars{display:flex;align-items:flex-end;gap:10px;height:130px;margin-top:10px}
+.bars div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;font-size:12.5px;color:var(--muted)}
+.bars i{display:block;width:100%;background:var(--forest-2);border-radius:8px 8px 3px 3px;min-height:3px;transition:height .5s}
+.bars div:last-child i{background:var(--amber)}
+.bars em{font-style:normal;font-weight:700;color:var(--ink);font-size:12.5px}
+.stack{display:flex;height:14px;border-radius:7px;overflow:hidden;margin:10px 0 8px}
+.stack span{display:block}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px}
+.filters{display:flex;gap:8px;overflow-x:auto;margin:12px 0 2px;padding-bottom:4px}
+.badge-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.badge{border:1.5px solid var(--line);border-radius:16px;padding:12px;background:var(--paper);font-weight:600;font-size:14px}
+.badge small{display:block;font-weight:400;color:var(--muted)}
+.badge.off{opacity:.55;border-style:dashed}
+.ring{display:flex;align-items:center;gap:16px}
+.ring svg{flex:none}
+
+/* nav + toast */
+nav{position:sticky;bottom:0;background:var(--paper);border-top:1px solid var(--line);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom));z-index:5}
+nav button{flex:1;background:transparent;border:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 2px;font-size:11.5px;font-weight:600;color:var(--muted);border-radius:12px;position:relative}
+nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+nav button[aria-current=page]{color:var(--forest);background:#DCEFE6}
+nav .dot{position:absolute;top:4px;left:calc(50% + 6px);background:var(--coral);color:#fff;border-radius:999px;font-size:10.5px;min-width:17px;height:17px;display:grid;place-items:center;padding:0 4px}
+#toast{position:fixed;left:50%;bottom:92px;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:11px 16px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;max-width:min(390px,92vw);text-align:center;z-index:20}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.app{max-width:1100px}
+.app[data-screen]{}
+.top{padding-bottom:20px}
+.tabs{display:flex;gap:8px;margin-top:16px;overflow-x:auto;padding-bottom:2px}
+.tabs button{border:0;background:rgba(255,255,255,.12);color:#fff;padding:9px 16px;border-radius:999px;font-weight:700;font-size:14px;white-space:nowrap;display:flex;align-items:center;gap:7px}
+.tabs button[aria-current=page]{background:var(--amber);color:#2A1E00}
+.dot2{background:var(--coral);color:#fff;border-radius:999px;font-size:11.5px;min-width:19px;height:19px;display:grid;place-items:center;padding:0 5px}
+main{padding:18px 20px 40px}
+.cards3{display:grid;grid-template-columns:1fr;gap:12px;align-items:start}
+.cards3 .card{margin:0}
+@media(min-width:700px){.cards3{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.cards3{grid-template-columns:1fr 1fr 1fr}}
+.card.fresh{border:2px solid var(--amber);background:#FFF8E6}
+button.thumb{cursor:zoom-in}
+#lightbox{display:none;position:fixed;inset:0;background:rgba(10,20,15,.82);z-index:50;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
+#lightbox img{max-width:100%;max-height:100%;border-radius:14px}
+</style>
+</head>
+<body>
+<div class="app" id="app" data-screen="home">
+  <header class="top" id="top"></header>
+  <main id="view"></main>
+  <nav id="nav" aria-label="Main" style="display:none"></nav>
+  <div id="toast" role="status" aria-live="polite"></div>
+</div>
+<div id="lightbox" onclick="closePhoto()"></div>
+<script>
+/* ---------- data ---------- */
+const PRODUCTS = {
+  headphones:{name:'Headphones',emoji:'🎧',kg:0.3},
+  charger:{name:'Charger',emoji:'🔌',kg:0.15},
+  earphones:{name:'Earphones',emoji:'🎵',kg:0.05},
+  speaker:{name:'Small speaker',emoji:'🔊',kg:0.6},
+  other:{name:'Other small device',emoji:'📟',kg:0.3}
+};
+const PROBLEMS = ['Not switching on','Not charging','No sound','Broken wire','Physical damage','Other'];
+const SLOTS = ['9:00 AM–12:00 PM','12:00–3:00 PM','5:00–7:00 PM'];
+const PICKERS = ['Murugan','Selvi','Rajesh'];
+const PARTNERS = ['Kumar Electronics','Arul Repair Hub','Fix-It Corner'];
+const BASE = {repaired:48, reused:32, recycled:8, kg:12.5};
+const GOAL = 100;
+const MONTHS = [['May',10],['Jun',14],['Jul',18],['Aug',20],['Sep',26]];
+const LEVELS = [{n:'New member',min:0},{n:'Fixer',min:1},{n:'Planet saver',min:3},{n:'Repair champion',min:6}];
+
+
+/* ---------- shared client code ---------- */
+const API = location.protocol==='file:' ? 'http://localhost:3000' : '';
+const when = iso => { if(!iso)return ''; const d=new Date(iso), t=new Date();
+  const hm=d.toLocaleTimeString('en-IN',{hour:'numeric',minute:'2-digit'});
+  return d.toDateString()===t.toDateString() ? 'Today, '+hm : d.toLocaleDateString('en-IN',{day:'numeric',month:'short'})+', '+hm; };
+const editing = () => { const a=document.activeElement; return !!(a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName||'')) };
+const reqs = [];
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const now = () => 'Today, ' + new Date().toLocaleTimeString('en-IN',{hour:'numeric',minute:'2-digit'});
+const kg = n => (+n.toFixed(2)) + ' kg';
+const get = id => reqs.find(q=>q.id===id);
+const who = q => q.customer;
+const myReqs = () => reqs;
+const done = q => q.stage===4;
+
+let toastTimer;
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2600)}
+
+function localTotals(){
+  let r=BASE.repaired,u=BASE.reused,c=BASE.recycled,w=BASE.kg,live=0;
+  reqs.forEach(q=>{
+    if(q.hist||!done(q))return;
+    live++;
+    if(q.outcome==='recycled'){c++}
+    else{w+=PRODUCTS[q.product].kg; q.outcome==='reused'?u++:r++}
+  });
+  return {repaired:r,reused:u,recycled:c,kg:w,live,saved:r+u};
+}
+function myStats(){
+  const m=myReqs().filter(done), saved=m.filter(q=>q.outcome!=='recycled');
+  return {saved:saved.length,kg:saved.reduce((a,q)=>a+PRODUCTS[q.product].kg,0),jobs:m.length,
+          recycled:m.length-saved.length,reused:m.filter(q=>q.outcome==='reused').length};
+}
+function level(n){let i=0;LEVELS.forEach((l,k)=>{if(n>=l.min)i=k});return {cur:LEVELS[i],next:LEVELS[i+1]||null}}
+
+function steps(q){
+  const p=PRODUCTS[q.product];
+  const s=[
+    {t:'Request received',d:`${p.name}: ${q.problem}`},
+    {t:'Pickup person assigned',d:q.pickupBy?`${q.pickupBy} will collect it. ${q.day}, ${q.slot}`:'We are assigning someone near you.'},
+    {t:'Picked up by repair partner',d:q.partner?`${q.partner} is checking your item.`:'A repair partner will check your item.'},
+    {t:'Repair completed',d:'Tested for quality and ready to return.'},
+    {t:'Returned to you',d:'Delivered back to your address.'}
+  ];
+  if(q.outcome==='recycled'){
+    s[3]={t:'Could not be repaired',d:'The damage was too severe to fix safely.'};
+    s[4]={t:'Recycled responsibly',d:'Sent to a certified e-waste recycler so it stays out of landfill.'};
+  }
+  if(q.outcome==='reused'){
+    s[3]={t:'Refurbished for reuse',d:'It could not be returned as it was, so it was refurbished.'};
+    s[4]={t:'Passed on for reuse',d:'Given to someone who can use it.'};
+  }
+  return s;
+}
+function statusText(q){return done(q)?steps(q)[4].t:steps(q)[q.stage].t}
+
+/* ---------- icons ---------- */
+const ICON = {
+  home:'<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  box:'<path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/>',
+  leaf:'<path d="M5 19c0-9 5-14 15-14 0 10-5 15-14 15"/><path d="M5 19c3-5 6-8 10-10"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
+  list:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
+  team:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.5 3-5.5 6.5-5.5s6.5 2 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.8c2.2.6 3.5 2.4 3.5 5.2"/>',
+  chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'
+};
+const NAV = {
+  customer:[['home','Home','home'],['repair','Repair','plus'],['track','Track','box'],['impact','Impact','leaf'],['profile','Profile','user']],
+  org:[['requests','Requests','list'],['team','Team','team'],['reports','Reports','chart']]
+};
+
+/* ---------- navigation ---------- */
+function go(screen){S.screen=screen;render();scrollTo(0,0)}
+
+
+/* ---------- organization: server connection ---------- */
+const TKEY='rr_org_token_v1';
+const S={screen:'requests',filter:'all',token:null,flash:null,online:true,loaded:false,sig:'',loginErr:''};
+const totals=()=>localTotals();
+async function api(path,opts){
+  const o=Object.assign({},opts||{});
+  o.headers=Object.assign({'Content-Type':'application/json'},S.token?{'x-org-token':S.token}:{});
+  const r=await fetch(API+path,o);
+  const j=await r.json().catch(()=>({}));
+  if(!r.ok){
+    if(r.status===401&&S.token&&path!=='/api/org/login'){orgLogout(true)}
+    const e=new Error(j.error||'Something went wrong.');e.status=r.status;throw e;
+  }
+  return j;
+}
+const banner=()=>S.online?'':`<div class="card" style="border-color:#C0412A"><b>Can't reach the server.</b><p class="muted" style="margin:4px 0 0">Check that the server is running. We'll keep trying.</p></div>`;
+function beep(){try{const A=window.AudioContext||window.webkitAudioContext;if(!A)return;window._ac=window._ac||new A();const c=window._ac,o=c.createOscillator(),g=c.createGain();o.frequency.value=880;g.gain.value=.08;o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.2)}catch(e){}}
+async function refresh(){
+  if(!S.token)return;
+  try{
+    const list=await api('/api/requests');
+    const sig=JSON.stringify(list);
+    const changed=sig!==S.sig||!S.online||!S.loaded;
+    const known=new Set(reqs.map(q=>q.id)), first=!S.loaded;
+    S.sig=sig;S.online=true;S.loaded=true;
+    reqs.splice(0,reqs.length,...list);
+    if(!first){
+      const fresh=list.filter(q=>!known.has(q.id));
+      if(fresh.length){
+        const l=fresh[fresh.length-1];
+        S.flash=new Set(fresh.map(q=>q.id));S.filter='all';
+        toast(`New request ${l.id} from ${l.customer}`);beep();
+        document.title='(New) Repair & Return Organization';
+        setTimeout(()=>{S.flash=null;if(!editing())render()},8000);
+      }
+    }
+    if(changed&&!editing())render();
+  }catch(e){
+    if(S.online){S.online=false;if(!editing())render()}
+  }
+}
+
+/* ---------- organization: views ---------- */
+function viewLogin(){
+  return `<div class="card" style="max-width:420px;margin:34px auto">
+    <h3>Organization login</h3>
+    <p class="muted" style="margin:0 0 4px">Sign in to see customer requests.</p>
+    <label class="l" for="pw">Password</label>
+    <input type="password" id="pw" autocomplete="current-password" onkeydown="if(event.key==='Enter')orgLogin()">
+    ${S.loginErr?`<div class="err">${S.loginErr}</div>`:''}
+    <button class="btn primary" onclick="orgLogin()">Sign in</button>
+  </div>`;
+}
+function viewRequests(){
+  const f=S.filter;
+  const list=reqs.slice().reverse().filter(q=>f==='all'||(f==='new'&&q.stage===0)||(f==='active'&&q.stage>0&&!done(q))||(f==='done'&&done(q)));
+  const n0=reqs.filter(q=>q.stage===0).length, nA=reqs.filter(q=>q.stage>0&&!done(q)).length, nD=reqs.filter(done).length;
+  return `
+  <div class="grid" style="grid-template-columns:repeat(3,1fr)">
+    <div class="stat"><div class="num">${n0}</div><div class="lbl">New</div></div>
+    <div class="stat"><div class="num">${nA}</div><div class="lbl">In progress</div></div>
+    <div class="stat"><div class="num">${nD}</div><div class="lbl">Done</div></div>
+  </div>
+  <div class="filters">
+    ${[['all','All'],['new','New'],['active','In progress'],['done','Done']].map(([k,l])=>`<button class="chip" aria-pressed="${f===k}" onclick="S.filter='${k}';render()">${l}</button>`).join('')}
+  </div>
+  ${list.length?'<div class="cards3">'+list.map(orgCard).join('')+'</div>'
+    :`<div class="card"><p class="muted" style="margin:0">${reqs.length?'No requests in this view.':'No requests yet. Orders placed in the customer app appear here instantly.'}</p></div>`}`;
+}
+function orgCard(q){
+  const p=PRODUCTS[q.product]||PRODUCTS.other;
+  const fresh=S.flash&&S.flash.has(q.id);
+  let a='';
+  if(q.stage===0) a=`<select id="pk-${q.id}" aria-label="Pickup person">${PICKERS.map(x=>`<option>${x}</option>`).join('')}</select>
+    <button class="btn primary sm" onclick="act('${q.id}','assign')">Assign pickup person</button>`;
+  else if(q.stage===1) a=`<select id="pt-${q.id}" aria-label="Repair partner">${PARTNERS.map(x=>`<option>${x}</option>`).join('')}</select>
+    <button class="btn primary sm" onclick="act('${q.id}','pickup')">Mark picked up and assign partner</button>`;
+  else if(q.stage===2) a=`<button class="btn primary sm" onclick="act('${q.id}','repaired')">Repair completed</button>
+    <button class="btn ghost sm" onclick="act('${q.id}','reuse')">Refurbish for reuse</button>
+    <button class="btn ghost sm" onclick="act('${q.id}','recycle')">Recycle responsibly</button>`;
+  else if(q.stage===3) a=`<button class="btn primary sm" onclick="act('${q.id}','return')">Return to customer</button>`;
+  const pill=done(q)?`<span class="pill soft">${statusText(q)}</span>`:`<span class="pill amber">${statusText(q)}</span>`;
+  return `<div class="card ${fresh?'fresh':''}">
+    <div class="row">
+      ${q.photo?`<button class="thumb" style="border:0;padding:0;cursor:zoom-in" onclick="openPhoto('${q.id}')" aria-label="View photo of ${p.name}"><img src="${q.photo}" alt="Photo of ${p.name}"></button>`:`<div class="thumb">${p.emoji}</div>`}
+      <div style="flex:1;min-width:0">
+        <b style="font-family:var(--display);font-size:17px">${q.id}</b>
+        <div class="kv"><b>${esc(q.customer)}</b></div>
+        <div class="kv"><a href="tel:${esc(q.mobile)}" style="color:var(--forest);font-weight:700">+91 ${esc(q.mobile)}</a></div>
+      </div>
+    </div>
+    <div class="kv" style="margin-top:10px"><b>${p.name}</b>: ${esc(q.problem)}${q.details?'<br>"'+esc(q.details)+'"':''}</div>
+    <div class="kv" style="margin-top:6px">Pickup: <b>${esc(q.address)}</b><br>${esc(q.day)}, ${esc(q.slot)}</div>
+    <div class="kv" style="margin-top:6px">Received ${when(q.log[0])}${q.pickupBy?'<br>Pickup person: <b>'+esc(q.pickupBy)+'</b>':''}${q.partner?'<br>Repair partner: <b>'+esc(q.partner)+'</b>':''}</div>
+    <div class="stages" aria-hidden="true">${[0,1,2,3,4].map(i=>`<span class="${i<=q.stage?'on':''}"></span>`).join('')}</div>
+    <div>${pill}${fresh?'<span class="pill" style="background:var(--amber);color:#2A1E00;margin-left:6px">Just in</span>':''}</div>
+    ${a?`<div class="actions">${a}</div>`:''}
+  </div>`;
+}
+function viewCustomers(){
+  const m={};reqs.forEach(q=>{(m[q.mobile]=m[q.mobile]||[]).push(q)});
+  const rows=Object.values(m).map(a=>({a,l:a[a.length-1]})).sort((x,y)=>new Date(y.l.created)-new Date(x.l.created));
+  return `
+  <div class="grid"><div class="stat"><div class="num">${rows.length}</div><div class="lbl">Customers</div></div>
+  <div class="stat"><div class="num">${reqs.length}</div><div class="lbl">Total requests</div></div></div>
+  ${rows.length?'<div class="cards3">'+rows.map(({a,l})=>`<div class="card" style="margin:0">
+    <b style="font-family:var(--display);font-size:18px">${esc(l.customer)}</b>
+    <div class="kv"><a href="tel:${esc(l.mobile)}" style="color:var(--forest);font-weight:700">+91 ${esc(l.mobile)}</a></div>
+    <div class="kv" style="margin-top:6px">Latest address: <b>${esc(l.address)}</b></div>
+    <div class="kv">Latest request: <b>${l.id}</b>, ${statusText(l)}</div>
+    <div style="margin-top:8px"><span class="pill soft">${a.length} ${a.length===1?'request':'requests'}</span></div>
+  </div>`).join('')+'</div>'
+  :'<div class="card"><p class="muted" style="margin:0">No customers yet. They appear here after their first request.</p></div>'}`;
+}
+function viewTeam(){
+  const load=(key,name)=>reqs.filter(q=>q[key]===name&&!done(q)).length;
+  const block=(title,arr,key,emoji)=>`<h2 class="h">${title}</h2>`+arr.map(n=>{
+    const l=load(key,n);
+    return `<div class="card row" style="align-items:center;margin:8px 0"><div class="thumb" style="width:46px;height:46px;font-size:22px">${emoji}</div>
+      <div style="flex:1"><b>${n}</b><div class="kv">${l} active ${l===1?'job':'jobs'}</div></div>
+      <span class="pill ${l?'amber':'soft'}">${l?'Busy':'Free'}</span></div>`}).join('');
+  return block('Pickup people',PICKERS,'pickupBy','🛵')+block('Repair partners',PARTNERS,'partner','🔧');
+}
+
+function viewReports(){
+  const t=totals();
+  const bars=[...MONTHS,['Oct',t.live]];
+  const max=Math.max(...bars.map(b=>b[1]),1);
+  const all=t.repaired+t.reused+t.recycled;
+  const pc=n=>(n/all*100).toFixed(1)+'%';
+  return `
+  <div class="grid">
+    <div class="stat dark"><div class="num">${t.repaired}</div><div class="lbl">Repaired</div></div>
+    <div class="stat dark"><div class="num">${t.reused}</div><div class="lbl">Reused</div></div>
+    <div class="stat"><div class="num">${kg(t.kg)}</div><div class="lbl">Waste avoided</div></div>
+    <div class="stat"><div class="num">${t.recycled}</div><div class="lbl">Recycled</div></div>
+  </div>
+  <div class="card">
+    <h3>Items handled each month</h3>
+    <div class="bars">${bars.map(b=>`<div><em>${b[1]}</em><i style="height:${Math.round(b[1]/max*88)}%"></i><span>${b[0]}</span></div>`).join('')}</div>
+    <p class="muted" style="margin:10px 0 0;font-size:13px">May to Sep are sample figures. October grows as you complete requests.</p>
+  </div>
+  <div class="card">
+    <h3>Where items end up</h3>
+    <div class="stack"><span style="width:${pc(t.repaired)};background:#1E5A46"></span><span style="width:${pc(t.reused)};background:#F4B63F"></span><span style="width:${pc(t.recycled)};background:#9DB8AC"></span></div>
+    <div class="legend"><span><i style="background:#1E5A46"></i>Repaired ${t.repaired}</span><span><i style="background:#F4B63F"></i>Reused ${t.reused}</span><span><i style="background:#9DB8AC"></i>Recycled ${t.recycled}</span></div>
+  </div>
+  <button class="btn primary" onclick="copySummary()">Copy impact summary</button>`;
+}
+
+
+
+/* ---------- organization: actions ---------- */
+const DONE_MSG={assign:'Pickup person assigned. Customer notified.',pickup:'Picked up. Repair partner is checking it.',repaired:'Repair completed. Ready to return.',
+  reuse:'Marked for reuse. Customer notified.',recycle:'Marked for recycling. Customer notified.',return:'Returned to customer. Impact updated.'};
+async function act(id,action){
+  let value;
+  if(action==='assign')value=$('#pk-'+id).value;
+  if(action==='pickup')value=$('#pt-'+id).value;
+  try{
+    const q=await api('/api/requests/'+id+'/action',{method:'POST',body:JSON.stringify({action,value})});
+    const i=reqs.findIndex(x=>x.id===id);if(i>=0)reqs[i]=q;
+    S.sig=JSON.stringify(reqs);
+    toast(DONE_MSG[action]);render();
+  }catch(e){toast(e.message);refresh()}
+}
+async function orgLogin(){
+  const pw=$('#pw').value;
+  try{
+    const r=await api('/api/org/login',{method:'POST',body:JSON.stringify({password:pw})});
+    S.token=r.token;S.loginErr='';S.loaded=false;S.sig='';
+    try{localStorage.setItem(TKEY,r.token)}catch(e){}
+    render();refresh();
+  }catch(e){S.loginErr=e.status===401?'Wrong password.':"Couldn't reach the server.";render()}
+}
+function orgLogout(expired){
+  S.token=null;reqs.length=0;S.loaded=false;
+  try{localStorage.removeItem(TKEY)}catch(e){}
+  if(expired)S.loginErr='Session expired. Sign in again.';
+  render();
+}
+function openPhoto(id){
+  const q=get(id);if(!q||!q.photo)return;
+  const box=$('#lightbox'),img=new Image();img.src=q.photo;img.alt='Product photo';
+  box.innerHTML='';box.appendChild(img);box.style.display='flex';
+}
+function closePhoto(){$('#lightbox').style.display='none'}
+function copy(text,msg){
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(()=>toast(msg),()=>toast('Could not copy. Select and copy manually.'))}
+  else toast('Copy is not available in this browser.');
+}
+function copySummary(){
+  const t=totals();
+  copy(`Repair & Return summary: ${t.repaired} repaired, ${t.reused} reused, ${t.recycled} recycled. ${kg(t.kg)} of waste avoided.`,'Summary copied.');
+}
+
+/* ---------- organization: render + start ---------- */
+const VIEWS={requests:viewRequests,customers:viewCustomers,team:viewTeam,reports:viewReports};
+const TABS=[['requests','Requests'],['customers','Customers'],['team','Team'],['reports','Reports']];
+const HEADS={
+  requests:['Requests','Every order from the customer app, from pickup to return.'],
+  customers:['Customers','Who has placed orders and how to reach them.'],
+  team:['Team','Who is out on pickups and repairs.'],
+  reports:['Impact reports','What the organization has achieved.']
+};
+function go(s){S.screen=s;render();scrollTo(0,0)}
+function render(){
+  const brand=`<div class="brand"><span class="logo" aria-hidden="true"></span>Repair &amp; Return</div>`;
+  if(!S.token){
+    $('#top').innerHTML=`<div class="bar">${brand}<span class="pill" style="background:var(--amber);color:#2A1E00">Organization</span></div>`;
+    $('#view').innerHTML=banner()+viewLogin();
+    return;
+  }
+  const n0=reqs.filter(q=>q.stage===0).length, h=HEADS[S.screen];
+  $('#top').innerHTML=`
+    <div class="bar">${brand}<div style="display:flex;gap:8px;align-items:center"><span class="pill" style="background:var(--amber);color:#2A1E00">Organization</span>
+      <button class="chip" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.4);padding:5px 11px;font-size:13px" onclick="orgLogout()">Log out</button></div></div>
+    <div class="tabs">${TABS.map(([k,l])=>`<button onclick="go('${k}')" ${S.screen===k?'aria-current="page"':''}>${l}${k==='requests'&&n0?`<span class="dot2" aria-label="${n0} new">${n0}</span>`:''}</button>`).join('')}</div>
+    <div class="pagehead"><h1>${h[0]}</h1><p>${h[1]}</p></div>`;
+  $('#view').innerHTML=banner()+VIEWS[S.screen]();
+}
+try{S.token=localStorage.getItem(TKEY)||null}catch(e){}
+render();
+if(S.token)refresh();
+try{const es=new EventSource(API+'/api/events');es.onmessage=()=>refresh()}catch(e){}
+setInterval(refresh,4000);
+window.addEventListener('focus',()=>{document.title='Repair & Return Organization';refresh()});
+
+</script>
+</body>
+</html>

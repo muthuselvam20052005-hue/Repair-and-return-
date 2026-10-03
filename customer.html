@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#123F31">
+<title>Repair & Return</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --forest:#123F31; --forest-2:#1E5A46; --mint:#E8F0EB; --paper:#fff; --ink:#10201A;
+  --muted:#52645B; --line:#D3DFD8; --amber:#F4B63F; --amber-soft:#FBE7B5; --coral:#C0412A; --ok:#2F8F64;
+  --display:'Bricolage Grotesque','Trebuchet MS',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#D6E3DC;font-family:Figtree,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--ink);line-height:1.45}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--forest);outline-offset:2px}
+.top :focus-visible,.hero :focus-visible{outline-color:var(--amber)}
+
+.app{max-width:430px;margin:0 auto;min-height:100vh;background:var(--mint);display:flex;flex-direction:column;position:relative;overflow:clip}
+@media(min-width:520px){body{padding:24px 0}.app{min-height:calc(100vh - 48px);border-radius:28px;box-shadow:0 24px 60px rgba(18,63,49,.28)}}
+
+/* header */
+.top{background:var(--forest);color:#fff;padding:16px 18px 18px;border-radius:0 0 22px 22px}
+.app[data-screen=home] .top{border-radius:0;padding-bottom:6px}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.01em}
+.logo{width:32px;height:22px;background:var(--amber);clip-path:polygon(24% 0,100% 0,100% 100%,24% 100%,0 50%);position:relative;flex:none}
+.logo::after{content:"";position:absolute;left:8px;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:var(--forest)}
+.role{display:flex;background:rgba(255,255,255,.12);border-radius:999px;padding:3px}
+.role button{border:0;background:transparent;color:#fff;padding:7px 12px;border-radius:999px;font-size:13px;font-weight:600}
+.role button[aria-pressed=true]{background:var(--amber);color:#2A1E00}
+.pagehead{margin-top:14px}
+.pagehead h1{font-family:var(--display);font-weight:800;font-size:27px;line-height:1.1;margin:0;letter-spacing:-.02em}
+.pagehead p{margin:5px 0 0;color:#BFD6CB;font-size:14.5px}
+
+main{flex:1;padding:16px 16px 28px}
+.app[data-screen=home] main{padding-top:0}
+
+/* hero */
+.hero{background:var(--forest);color:#fff;margin:0 -16px 0;padding:14px 18px 74px;border-radius:0 0 28px 28px}
+.hero .hi{color:#BFD6CB;font-size:14px;margin:6px 0 4px}
+.hero h1{font-family:var(--display);font-weight:800;font-size:38px;line-height:1.03;margin:0 0 10px;letter-spacing:-.03em}
+.hero p.lead{margin:0 0 18px;color:#D5E6DD;font-size:15.5px;max-width:30ch}
+.lift{margin:-56px 0 0;position:relative}
+
+/* tag motif */
+.tag{position:relative;background:var(--amber);color:#2A1E00;border-radius:8px 20px 20px 8px;padding:15px 16px 14px 46px;text-align:left;width:100%;border:0;display:block;box-shadow:0 10px 24px rgba(18,63,49,.22)}
+.tag::before{content:"";position:absolute;left:15px;top:50%;margin-top:-8px;width:16px;height:16px;border-radius:50%;background:var(--forest);box-shadow:inset 0 2px 3px rgba(0,0,0,.45)}
+.tag .id{font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.01em;display:block}
+.tag .what{font-size:14.5px;margin:1px 0 8px;display:block}
+.pill{display:inline-block;background:rgba(18,63,49,.9);color:#fff;border-radius:999px;padding:4px 11px;font-size:12.5px;font-weight:600}
+.pill.soft{background:#DCEFE6;color:var(--forest)}
+.pill.warn{background:#FBE1DA;color:#8E2C18}
+.pill.amber{background:var(--amber-soft);color:#5C4000}
+.swing{transform-origin:18px 50%;animation:swing .9s cubic-bezier(.2,.8,.3,1) both}
+@keyframes swing{0%{transform:rotate(-10deg) translateY(-26px);opacity:0}55%{transform:rotate(3deg);opacity:1}80%{transform:rotate(-1deg)}100%{transform:rotate(0)}}
+
+/* cards + type */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0}
+.card h3,.sec h3{font-family:var(--display);font-weight:800;font-size:18px;margin:0 0 6px;letter-spacing:-.01em}
+h2.h{font-family:var(--display);font-weight:800;font-size:22px;margin:22px 2px 4px;letter-spacing:-.015em}
+.muted{color:var(--muted);font-size:14.5px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px}
+.stat .num{font-family:var(--display);font-weight:800;font-size:30px;line-height:1;color:var(--forest);letter-spacing:-.02em}
+.stat .lbl{font-size:13.5px;color:var(--muted);margin-top:5px}
+.stat.dark{background:var(--forest);border-color:var(--forest)}
+.stat.dark .num{color:var(--amber)}.stat.dark .lbl{color:#C7DCD1}
+
+/* buttons */
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:14px 16px;font-weight:700;font-size:15.5px;margin-top:10px;text-align:center;transition:transform .12s}
+.btn:active{transform:scale(.985)}
+.btn.primary{background:var(--forest);color:#fff}
+.btn.amber{background:var(--amber);color:#2A1E00}
+.btn.ghost{background:transparent;color:var(--forest);border:1.5px solid var(--forest)}
+.btn.sm{padding:11px 12px;font-size:14px;margin-top:8px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+
+/* steps (how it works) */
+.flow{display:flex;gap:6px;margin-top:12px}
+.flow div{flex:1;text-align:center;font-size:12.5px;font-weight:600;color:var(--forest)}
+.flow i{display:grid;place-items:center;width:40px;height:40px;margin:0 auto 6px;border-radius:50%;background:var(--mint);font-style:normal;font-size:19px;border:1px solid var(--line)}
+
+/* progress */
+.meter{height:10px;border-radius:999px;background:var(--mint);overflow:hidden;margin:10px 0 6px}
+.meter span{display:block;height:100%;background:var(--forest);border-radius:999px;transition:width .5s}
+
+/* form */
+label.l{display:block;font-weight:700;font-size:14.5px;margin:18px 2px 8px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tile{background:var(--paper);border:1.5px solid var(--line);border-radius:16px;padding:12px 4px 10px;text-align:center;font-size:12.5px;font-weight:600;line-height:1.2}
+.tile b{display:block;font-size:26px;margin-bottom:4px;font-weight:400}
+.tile[aria-pressed=true]{border-color:var(--forest);background:#DCEFE6;box-shadow:inset 0 0 0 1px var(--forest)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--paper);border:1.5px solid var(--line);border-radius:999px;padding:8px 13px;font-size:14px;font-weight:600}
+.chip[aria-pressed=true]{background:var(--forest);border-color:var(--forest);color:#fff}
+input[type=text],input[type=password],select,textarea{width:100%;padding:13px;border:1.5px solid var(--line);border-radius:12px;background:var(--paper);font-size:15.5px}
+textarea{resize:vertical;min-height:70px;margin-top:8px}
+.upload{display:flex;align-items:center;gap:14px;border:2px dashed #9DB8AC;border-radius:16px;padding:16px;background:var(--paper);cursor:pointer}
+.upload .ic{width:54px;height:54px;border-radius:14px;background:var(--mint);display:grid;place-items:center;font-size:24px;flex:none;overflow:hidden}
+.upload img{width:100%;height:100%;object-fit:cover}
+.upload small{color:var(--muted);display:block}
+.seg2{display:flex;gap:8px}
+.seg2 .chip{flex:1;text-align:center}
+.err{color:var(--coral);font-size:13.5px;font-weight:600;margin:6px 2px 0}
+.check{display:flex;gap:10px;align-items:flex-start;margin-top:18px;font-size:14px;color:var(--muted)}
+.check input{width:20px;height:20px;margin-top:1px;accent-color:var(--forest);flex:none}
+
+/* timeline */
+.tl{list-style:none;margin:0;padding:0}
+.tl li{position:relative;padding:0 0 22px 40px}
+.tl li:last-child{padding-bottom:2px}
+.tl li::before{content:"";position:absolute;left:11px;top:24px;bottom:0;width:2px;background:var(--line)}
+.tl li:last-child::before{display:none}
+.tl li.done::before{background:var(--ok)}
+.tl .node{position:absolute;left:0;top:0;width:24px;height:24px;border-radius:50%;border:2px solid var(--line);background:var(--paper);display:grid;place-items:center;font-size:13px;color:#fff}
+.tl li.done .node{background:var(--ok);border-color:var(--ok)}
+.tl li.now .node{box-shadow:0 0 0 5px rgba(47,143,100,.2)}
+.tl b{display:block;font-size:15.5px}
+.tl li:not(.done) b{color:var(--muted)}
+.tl .when{font-size:12.5px;color:var(--muted)}
+.tl p{margin:2px 0 0;font-size:14px;color:var(--muted)}
+.picker{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px}
+.picker .chip{white-space:nowrap}
+
+/* org */
+.stages{display:flex;gap:4px;margin:10px 0}
+.stages span{flex:1;height:6px;border-radius:3px;background:var(--line)}
+.stages span.on{background:var(--ok)}
+.row{display:flex;gap:12px;align-items:flex-start}
+.thumb{width:62px;height:62px;border-radius:14px;background:var(--mint);display:grid;place-items:center;font-size:28px;overflow:hidden;flex:none}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.kv{font-size:14px;color:var(--muted)}
+.kv b{color:var(--ink)}
+.actions{border-top:2px dashed var(--line);margin-top:12px;padding-top:12px}
+.bars{display:flex;align-items:flex-end;gap:10px;height:130px;margin-top:10px}
+.bars div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;font-size:12.5px;color:var(--muted)}
+.bars i{display:block;width:100%;background:var(--forest-2);border-radius:8px 8px 3px 3px;min-height:3px;transition:height .5s}
+.bars div:last-child i{background:var(--amber)}
+.bars em{font-style:normal;font-weight:700;color:var(--ink);font-size:12.5px}
+.stack{display:flex;height:14px;border-radius:7px;overflow:hidden;margin:10px 0 8px}
+.stack span{display:block}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px}
+.filters{display:flex;gap:8px;overflow-x:auto;margin:12px 0 2px;padding-bottom:4px}
+.badge-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.badge{border:1.5px solid var(--line);border-radius:16px;padding:12px;background:var(--paper);font-weight:600;font-size:14px}
+.badge small{display:block;font-weight:400;color:var(--muted)}
+.badge.off{opacity:.55;border-style:dashed}
+.ring{display:flex;align-items:center;gap:16px}
+.ring svg{flex:none}
+
+/* nav + toast */
+nav{position:sticky;bottom:0;background:var(--paper);border-top:1px solid var(--line);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom));z-index:5}
+nav button{flex:1;background:transparent;border:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 2px;font-size:11.5px;font-weight:600;color:var(--muted);border-radius:12px;position:relative}
+nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+nav button[aria-current=page]{color:var(--forest);background:#DCEFE6}
+nav .dot{position:absolute;top:4px;left:calc(50% + 6px);background:var(--coral);color:#fff;border-radius:999px;font-size:10.5px;min-width:17px;height:17px;display:grid;place-items:center;padding:0 4px}
+#toast{position:fixed;left:50%;bottom:92px;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:11px 16px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;max-width:min(390px,92vw);text-align:center;z-index:20}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app" id="app" data-screen="home">
+  <header class="top" id="top"></header>
+  <main id="view"></main>
+  <nav id="nav" aria-label="Main"></nav>
+  <div id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<script>
+/* ---------- data ---------- */
+const PRODUCTS = {
+  headphones:{name:'Headphones',emoji:'🎧',kg:0.3},
+  charger:{name:'Charger',emoji:'🔌',kg:0.15},
+  earphones:{name:'Earphones',emoji:'🎵',kg:0.05},
+  speaker:{name:'Small speaker',emoji:'🔊',kg:0.6},
+  other:{name:'Other small device',emoji:'📟',kg:0.3}
+};
+const PROBLEMS = ['Not switching on','Not charging','No sound','Broken wire','Physical damage','Other'];
+const SLOTS = ['9:00 AM–12:00 PM','12:00–3:00 PM','5:00–7:00 PM'];
+const PICKERS = ['Murugan','Selvi','Rajesh'];
+const PARTNERS = ['Kumar Electronics','Arul Repair Hub','Fix-It Corner'];
+const BASE = {repaired:48, reused:32, recycled:8, kg:12.5};
+const GOAL = 100;
+const MONTHS = [['May',10],['Jun',14],['Jul',18],['Aug',20],['Sep',26]];
+const LEVELS = [{n:'New member',min:0},{n:'Fixer',min:1},{n:'Planet saver',min:3},{n:'Repair champion',min:6}];
+
+
+/* ---------- shared client code ---------- */
+const API = location.protocol==='file:' ? 'http://localhost:3000' : '';
+const when = iso => { if(!iso)return ''; const d=new Date(iso), t=new Date();
+  const hm=d.toLocaleTimeString('en-IN',{hour:'numeric',minute:'2-digit'});
+  return d.toDateString()===t.toDateString() ? 'Today, '+hm : d.toLocaleDateString('en-IN',{day:'numeric',month:'short'})+', '+hm; };
+const editing = () => { const a=document.activeElement; return !!(a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName||'')) };
+const reqs = [];
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const now = () => 'Today, ' + new Date().toLocaleTimeString('en-IN',{hour:'numeric',minute:'2-digit'});
+const kg = n => (+n.toFixed(2)) + ' kg';
+const get = id => reqs.find(q=>q.id===id);
+const who = q => q.customer;
+const myReqs = () => reqs;
+const done = q => q.stage===4;
+
+let toastTimer;
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2600)}
+
+function localTotals(){
+  let r=BASE.repaired,u=BASE.reused,c=BASE.recycled,w=BASE.kg,live=0;
+  reqs.forEach(q=>{
+    if(q.hist||!done(q))return;
+    live++;
+    if(q.outcome==='recycled'){c++}
+    else{w+=PRODUCTS[q.product].kg; q.outcome==='reused'?u++:r++}
+  });
+  return {repaired:r,reused:u,recycled:c,kg:w,live,saved:r+u};
+}
+function myStats(){
+  const m=myReqs().filter(done), saved=m.filter(q=>q.outcome!=='recycled');
+  return {saved:saved.length,kg:saved.reduce((a,q)=>a+PRODUCTS[q.product].kg,0),jobs:m.length,
+          recycled:m.length-saved.length,reused:m.filter(q=>q.outcome==='reused').length};
+}
+function level(n){let i=0;LEVELS.forEach((l,k)=>{if(n>=l.min)i=k});return {cur:LEVELS[i],next:LEVELS[i+1]||null}}
+
+function steps(q){
+  const p=PRODUCTS[q.product];
+  const s=[
+    {t:'Request received',d:`${p.name}: ${q.problem}`},
+    {t:'Pickup person assigned',d:q.pickupBy?`${q.pickupBy} will collect it. ${q.day}, ${q.slot}`:'We are assigning someone near you.'},
+    {t:'Picked up by repair partner',d:q.partner?`${q.partner} is checking your item.`:'A repair partner will check your item.'},
+    {t:'Repair completed',d:'Tested for quality and ready to return.'},
+    {t:'Returned to you',d:'Delivered back to your address.'}
+  ];
+  if(q.outcome==='recycled'){
+    s[3]={t:'Could not be repaired',d:'The damage was too severe to fix safely.'};
+    s[4]={t:'Recycled responsibly',d:'Sent to a certified e-waste recycler so it stays out of landfill.'};
+  }
+  if(q.outcome==='reused'){
+    s[3]={t:'Refurbished for reuse',d:'It could not be returned as it was, so it was refurbished.'};
+    s[4]={t:'Passed on for reuse',d:'Given to someone who can use it.'};
+  }
+  return s;
+}
+function statusText(q){return done(q)?steps(q)[4].t:steps(q)[q.stage].t}
+
+/* ---------- icons ---------- */
+const ICON = {
+  home:'<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  box:'<path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/>',
+  leaf:'<path d="M5 19c0-9 5-14 15-14 0 10-5 15-14 15"/><path d="M5 19c3-5 6-8 10-10"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
+  list:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
+  team:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.5 3-5.5 6.5-5.5s6.5 2 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.8c2.2.6 3.5 2.4 3.5 5.2"/>',
+  chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'
+};
+const NAV = {
+  customer:[['home','Home','home'],['repair','Repair','plus'],['track','Track','box'],['impact','Impact','leaf'],['profile','Profile','user']],
+  org:[['requests','Requests','list'],['team','Team','team'],['reports','Reports','chart']]
+};
+
+/* ---------- navigation ---------- */
+function go(screen){S.screen=screen;render();scrollTo(0,0)}
+
+/* ---------- customer views ---------- */
+function activeReq(){const a=myReqs().filter(q=>!done(q));return a[a.length-1]||null}
+
+function viewHome(){
+  const t=totals(), a=activeReq(), ms=myStats();
+  const tag = a
+    ? `<button class="tag" onclick="S.track='${a.id}';go('track')" aria-label="Open tracking for ${a.id}">
+         <span class="id">${a.id}</span>
+         <span class="what">${PRODUCTS[a.product].name}: ${esc(a.problem)}</span>
+         <span class="pill">${statusText(a)}</span></button>`
+    : `<button class="tag" onclick="go('repair')"><span class="id">No active repair</span>
+         <span class="what">Tap to send your first item.</span><span class="pill">Start a repair</span></button>`;
+  const pct=Math.min(100,Math.round(t.saved/GOAL*100));
+  return `
+  <section class="hero">
+    <p class="hi">Welcome, ${esc(S.me.name)}</p>
+    <h1>Don't bin it.<br>Bring it back.</h1>
+    <p class="lead">Repair, reuse and recycle small electronics with one simple pickup.</p>
+    <button class="btn amber" onclick="go('repair')">Start a repair</button>
+  </section>
+  <div class="lift">${tag}</div>
+
+  <div class="grid">
+    <div class="stat"><div class="num">${t.repaired}</div><div class="lbl">Items repaired</div></div>
+    <div class="stat"><div class="num">${kg(t.kg)}</div><div class="lbl">Waste avoided</div></div>
+  </div>
+
+  <div class="card">
+    <h3>Community goal</h3>
+    <div class="meter" role="progressbar" aria-valuenow="${t.saved}" aria-valuemax="${GOAL}" aria-label="Items saved toward goal"><span style="width:${pct}%"></span></div>
+    <div class="muted">${t.saved} of ${GOAL} items saved. ${Math.max(0,GOAL-t.saved)} to go${ms.saved?`, and ${ms.saved} of them are yours`:''}.</div>
+  </div>
+
+  <div class="card">
+    <h3>How it works</h3>
+    <div class="flow">
+      <div><i>📷</i>Upload</div><div><i>🛵</i>Pickup</div><div><i>🔧</i>Repair</div><div><i>📦</i>Return</div><div><i>♻️</i>Recycle</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Why repair?</h3>
+    <p class="muted" style="margin:0">Small electronics are often thrown away for small faults. A repair keeps them useful, saves resources and gives local repair workers steady work. If an item can't be fixed, we reuse or recycle it responsibly.</p>
+  </div>`;
+}
+
+function viewRepair(){
+  const d=S.draft, e=d.err||{};
+  return `
+  <label class="l" style="margin-top:6px">What needs repair?</label>
+  <div class="tiles">
+    ${Object.entries(PRODUCTS).map(([k,p])=>`<button class="tile" aria-pressed="${d.product===k}" onclick="setDraft('product','${k}')"><b>${p.emoji}</b>${p.name}</button>`).join('')}
+  </div>
+
+  <label class="l">What's the problem?</label>
+  <div class="chips">
+    ${PROBLEMS.map(p=>`<button class="chip" aria-pressed="${d.chip===p}" onclick="setDraft('chip','${p}')">${p}</button>`).join('')}
+  </div>
+  ${e.chip?`<div class="err">${e.chip}</div>`:''}
+  <textarea id="details" placeholder="Anything else we should know? (optional)" oninput="S.draft.details=this.value" aria-label="Problem details">${esc(d.details)}</textarea>
+  ${e.details?`<div class="err">${e.details}</div>`:''}
+
+  <label class="l">Add a photo</label>
+  <label class="upload">
+    <input type="file" accept="image/*" hidden onchange="onPhoto(event)">
+    <span class="ic">${d.photo?`<img src="${d.photo}" alt="Uploaded product photo">`:'📷'}</span>
+    <span><b>${d.photo?'Photo added. Tap to change':'Upload product photo'}</b><small>Helps the repair partner prepare</small></span>
+  </label>
+
+  <label class="l" for="addr">Pickup address</label>
+  <input type="text" id="addr" placeholder="House no., street, area" value="${esc(d.address)}" oninput="S.draft.address=this.value" autocomplete="street-address">
+  ${e.address?`<div class="err">${e.address}</div>`:''}
+
+  <label class="l">Pickup time</label>
+  <div class="seg2">
+    ${['Today','Tomorrow'].map(x=>`<button class="chip" aria-pressed="${d.day===x}" onclick="setDraft('day','${x}')">${x}</button>`).join('')}
+  </div>
+  <select aria-label="Pickup slot" style="margin-top:10px" onchange="S.draft.slot=this.value">
+    ${SLOTS.map(s=>`<option ${d.slot===s?'selected':''}>${s}</option>`).join('')}
+  </select>
+
+  <label class="check"><input type="checkbox" ${d.consent?'checked':''} onchange="S.draft.consent=this.checked">
+    <span>If my item can't be repaired, recycle it or pass it on for reuse.</span></label>
+  ${e.consent?`<div class="err">${e.consent}</div>`:''}
+
+  <button class="btn primary" onclick="submitRepair()" ${S.sending?'disabled':''}>${S.sending?'Sending…':'Request pickup'}</button>`;
+}
+
+function viewDone(){
+  const q=get(S.track);
+  return `
+  <div class="swing" style="margin:10px 0 6px">
+    <div class="tag"><span class="id">${q.id}</span><span class="what">${PRODUCTS[q.product].name}: ${esc(q.problem)}</span><span class="pill">Pickup requested</span></div>
+  </div>
+  <div class="card">
+    <h3>Pickup window</h3>
+    <p class="kv" style="margin:0"><b>${q.day}, ${q.slot}</b><br>${esc(q.address)}</p>
+  </div>
+  <div class="card">
+    <h3>What happens next</h3>
+    <p class="muted" style="margin:0">We assign a pickup person, a repair partner checks your item, and you see every update on the Track screen.</p>
+  </div>
+  <button class="btn primary" onclick="go('track')">Track repair</button>
+  <button class="btn ghost" onclick="go('home')">Back to home</button>`;
+}
+
+function viewTrack(){
+  const mine=myReqs();
+  if(!mine.length) return `<div class="card"><h3>No repairs yet</h3><p class="muted">Send your first item and track it here.</p><button class="btn primary" onclick="go('repair')">Start a repair</button></div>`;
+  let q=get(S.track); if(!q) q=mine[mine.length-1];
+  const st=steps(q);
+  const picker = mine.length>1 ? `<div class="picker">${mine.slice().reverse().map(m=>`<button class="chip" aria-pressed="${m.id===q.id}" onclick="S.track='${m.id}';render()">${m.id}</button>`).join('')}</div>` : '';
+  return `
+  ${picker}
+  <div class="tag" style="margin:8px 0 14px"><span class="id">${q.id}</span><span class="what">${PRODUCTS[q.product].name}: ${esc(q.problem)}</span><span class="pill">${statusText(q)}</span></div>
+  <div class="card">
+    <ul class="tl">
+      ${st.map((s,i)=>`<li class="${i<=q.stage?'done':''} ${i===q.stage?'now':''}">
+        <span class="node">${i<=q.stage?'✓':''}</span>
+        <b>${s.t}</b>${q.log[i]?`<span class="when">${when(q.log[i])}</span>`:''}
+        <p>${esc(s.d)}</p></li>`).join('')}
+    </ul>
+  </div>
+  ${done(q)?`<button class="btn primary" onclick="go('impact')">See my impact</button>`
+    :`<p class="muted" style="text-align:center">Demo tip: switch to <b>Organization</b> at the top to move this request forward.</p>`}`;
+}
+
+function viewImpact(){
+  const m=myStats(), lv=level(m.saved);
+  const R=34, C=2*Math.PI*R;
+  const prog = lv.next ? Math.min(1,(m.saved-lv.cur.min)/(lv.next.min-lv.cur.min)) : 1;
+  return `
+  <div class="card ring">
+    <svg width="86" height="86" viewBox="0 0 86 86" aria-hidden="true">
+      <circle cx="43" cy="43" r="${R}" fill="none" stroke="#E8F0EB" stroke-width="10"/>
+      <circle cx="43" cy="43" r="${R}" fill="none" stroke="#2F8F64" stroke-width="10" stroke-linecap="round"
+        stroke-dasharray="${C}" stroke-dashoffset="${C*(1-prog)}" transform="rotate(-90 43 43)"/>
+      <text x="43" y="49" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="22" fill="#123F31">${m.saved}</text>
+    </svg>
+    <div><h3 style="margin:0">${lv.cur.n}</h3>
+    <div class="muted">${lv.next?`${lv.next.min-m.saved} more ${lv.next.min-m.saved===1?'item':'items'} to become ${lv.next.n}.`:'You reached the top level.'}</div></div>
+  </div>
+  <div class="grid">
+    <div class="stat dark"><div class="num">${m.saved}</div><div class="lbl">Products saved</div></div>
+    <div class="stat dark"><div class="num">${kg(m.kg)}</div><div class="lbl">Waste avoided</div></div>
+    <div class="stat"><div class="num">${m.jobs}</div><div class="lbl">Repair jobs supported</div></div>
+    <div class="stat"><div class="num">${m.recycled}</div><div class="lbl">Recycled responsibly</div></div>
+  </div>
+  <p class="muted" style="margin:4px 2px">Waste avoided is estimated from the average weight of each product type.</p>
+  <button class="btn primary" onclick="shareImpact()">Share my impact</button>`;
+}
+
+function viewProfile(){
+  const m=myStats(), lv=level(m.saved);
+  const badges=[
+    ['First repair','Save one product',m.saved>=1],
+    ['Reuse hero','Pass one item on',m.reused>=1],
+    ['Planet saver','Save three products',m.saved>=3],
+    ['Recycler','Recycle one item',m.recycled>=1]
+  ];
+  return `
+  <div class="card">
+    <h3 style="margin:0">${esc(S.me.name)}</h3>
+    <div class="muted">+91 ${esc(S.me.mobile)}</div>
+    <div style="margin-top:10px"><span class="pill soft">${lv.cur.n}</span></div>
+    <button class="btn ghost sm" onclick="logout()">Log out</button>
+  </div>
+  <h2 class="h">Badges</h2>
+  <div class="badge-row">${badges.map(b=>`<div class="badge ${b[2]?'':'off'}">${b[2]?'🏅':'🔒'} ${b[0]}<small>${b[1]}</small></div>`).join('')}</div>
+  <h2 class="h">My requests</h2>
+  ${myReqs().slice().reverse().map(q=>`
+    <button class="card" style="width:100%;text-align:left" onclick="S.track='${q.id}';go('track')">
+      <div class="row"><div class="thumb">${q.photo?`<img src="${q.photo}" alt="">`:PRODUCTS[q.product].emoji}</div>
+      <div><b>${q.id}</b><div class="kv">${PRODUCTS[q.product].name}: ${esc(q.problem)}</div>
+      <span class="pill ${done(q)?'soft':'amber'}" style="margin-top:6px">${statusText(q)}</span></div></div>
+    </button>`).join('')}`;
+}
+
+
+/* ---------- customer: server connection ---------- */
+const UKEY='rr_me_v3';
+const S={screen:'home',track:null,
+  draft:{product:'headphones',chip:'',details:'',photo:null,address:'',day:'Today',slot:SLOTS[2],consent:true,err:{}},
+  me:null,loginErr:{},loginName:'',loginMob:'',stats:null,online:true,loaded:false,sending:false,sig:''};
+function totals(){return S.stats||{repaired:BASE.repaired,reused:BASE.reused,recycled:BASE.recycled,kg:BASE.kg,live:0,saved:BASE.repaired+BASE.reused}}
+async function api(path,opts){
+  const r=await fetch(API+path,Object.assign({headers:{'Content-Type':'application/json'}},opts||{}));
+  const j=await r.json().catch(()=>({}));
+  if(!r.ok){const e=new Error(j.error||'Something went wrong.');e.status=r.status;throw e}
+  return j;
+}
+const banner=()=>S.online?'':`<div class="card" style="border-color:#C0412A"><b>Can't reach the server.</b><p class="muted" style="margin:4px 0 0">Check your internet or Wi-Fi. We'll keep trying.</p></div>`;
+async function refresh(){
+  if(!S.me)return;
+  try{
+    const prev={};reqs.forEach(q=>prev[q.id]=q.stage+':'+q.outcome);
+    const [list,stats]=await Promise.all([api('/api/requests?mobile='+S.me.mobile),api('/api/stats')]);
+    const sig=JSON.stringify([list,stats]);
+    const changed=sig!==S.sig||!S.online||!S.loaded;
+    S.sig=sig;S.online=true;S.loaded=true;S.stats=stats;
+    reqs.splice(0,reqs.length,...list);
+    if(!get(S.track)&&list.length)S.track=list[list.length-1].id;
+    const ch=list.find(q=>prev[q.id]!==undefined&&prev[q.id]!==q.stage+':'+q.outcome);
+    if(ch)toast(`Update on ${ch.id}: ${statusText(ch)}`);
+    if(changed&&!editing()&&S.screen!=='repair'&&!S.sending)render();
+  }catch(e){
+    if(S.online){S.online=false;if(!editing())render()}
+  }
+}
+
+/* ---------- customer: actions ---------- */
+function setDraft(k,v){S.draft[k]=v;if(S.draft.err)delete S.draft.err[k];render()}
+function onPhoto(e){
+  const f=e.target.files&&e.target.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{const img=new Image();img.onload=()=>{
+    const s=Math.min(1,480/Math.max(img.width,img.height)),c=document.createElement('canvas');
+    c.width=Math.round(img.width*s);c.height=Math.round(img.height*s);
+    c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+    S.draft.photo=c.toDataURL('image/jpeg',.7);render()};img.src=r.result};
+  r.readAsDataURL(f);
+}
+async function submitRepair(){
+  const d=S.draft, err={};
+  if(!d.chip) err.chip='Choose the problem that fits best.';
+  if(d.chip==='Other'&&!d.details.trim()) err.details='Describe the problem so the repair partner knows what to check.';
+  if(!d.address.trim()) err.address='Enter the address for pickup.';
+  if(!d.consent) err.consent='Tick this so we know what to do if repair is not possible.';
+  d.err=err;
+  if(Object.keys(err).length){render();const el=document.querySelector('.err');if(el&&el.scrollIntoView)el.scrollIntoView({block:'center',behavior:'smooth'});return}
+  if(S.sending)return;
+  S.sending=true;render();
+  try{
+    const q=await api('/api/requests',{method:'POST',body:JSON.stringify({name:S.me.name,mobile:S.me.mobile,product:d.product,problem:d.chip,
+      details:d.details.trim(),photo:d.photo,address:d.address.trim(),day:d.day,slot:d.slot})});
+    reqs.push(q);S.track=q.id;
+    S.draft={product:d.product,chip:'',details:'',photo:null,address:d.address,day:'Today',slot:SLOTS[2],consent:true,err:{}};
+    S.sending=false;
+    toast('Request sent to the repair team: '+q.id);
+    go('done');refresh();
+  }catch(e){
+    S.sending=false;
+    toast(e.status?e.message:"Couldn't reach the server. Check your connection and try again.");
+    render();
+  }
+}
+function doLogin(){
+  const n=$('#ln').value.trim(), m=$('#lm').value.replace(/\D/g,''), err={};
+  if(n.length<2) err.n='Enter your name.';
+  if(!/^[6-9]\d{9}$/.test(m)) err.m='Enter a valid 10-digit mobile number.';
+  S.loginErr=err;S.loginName=n;S.loginMob=m;
+  if(Object.keys(err).length){render();return}
+  S.me={name:n,mobile:m};S.loginErr={};
+  try{localStorage.setItem(UKEY,JSON.stringify(S.me))}catch(e){}
+  reqs.length=0;S.loaded=false;S.sig='';S.track=null;S.screen='home';
+  toast('Welcome, '+n);render();scrollTo(0,0);refresh();
+}
+function logout(){
+  S.me=null;S.loginName='';S.loginMob='';S.loginErr={};reqs.length=0;S.screen='home';
+  try{localStorage.removeItem(UKEY)}catch(e){}
+  render();scrollTo(0,0);
+}
+function viewLogin(){
+  const e=S.loginErr||{};
+  return `
+  <section class="hero" style="padding-bottom:70px">
+    <h1 style="margin-top:14px">Don't bin it.<br>Bring it back.</h1>
+    <p class="lead" style="margin:0">Log in to repair, reuse and recycle your small electronics.</p>
+  </section>
+  <div class="lift"><div class="card" style="margin:0">
+    <h3>Log in</h3>
+    <label class="l" for="ln" style="margin-top:10px">Your name</label>
+    <input type="text" id="ln" placeholder="Full name" value="${esc(S.loginName)}" maxlength="40" autocomplete="name" onkeydown="if(event.key==='Enter')doLogin()">
+    ${e.n?`<div class="err">${e.n}</div>`:''}
+    <label class="l" for="lm">Mobile number</label>
+    <div style="display:flex;gap:8px"><span style="padding:13px;border:1.5px solid var(--line);border-radius:12px;background:var(--mint);font-weight:700">+91</span>
+    <input type="text" id="lm" inputmode="numeric" placeholder="10-digit number" value="${esc(S.loginMob)}" maxlength="10" autocomplete="tel-national"
+      oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    ${e.m?`<div class="err">${e.m}</div>`:''}
+    <button class="btn primary" onclick="doLogin()">Log in</button>
+    <p class="muted" style="font-size:13px;margin:12px 0 0">Your name and mobile number let the repair team contact you about pickup and return.</p>
+  </div></div>`;
+}
+function impactText(){
+  const m=myStats();
+  return `I've saved ${m.saved} ${m.saved===1?'product':'products'} and avoided ${kg(m.kg)} of e-waste with Repair & Return. Don't throw it, give it a second life!`;
+}
+function copy(text,msg){
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(()=>toast(msg),()=>toast('Could not copy. Select and copy manually.'))}
+  else toast('Copy is not available in this browser.');
+}
+function shareImpact(){
+  const text=impactText();
+  if(navigator.share){navigator.share({title:'Repair & Return',text}).catch(()=>{})}
+  else copy(text,'Impact copied. Paste it anywhere to share.');
+}
+
+/* ---------- customer: render + start ---------- */
+const VIEWS={home:viewHome,repair:viewRepair,done:viewDone,track:viewTrack,impact:viewImpact,profile:viewProfile};
+const HEADS={
+  repair:['Start a repair','Tell us about your damaged product.'],
+  done:['Pickup requested','Your item is on its way to a second life.'],
+  track:['Track repair','Follow your item from pickup to return.'],
+  impact:['My impact','Every repair creates social and environmental value.'],
+  profile:['Profile','Your repair journey.']
+};
+function render(){
+  const app=$('#app');
+  const brand='<div class="bar"><div class="brand"><span class="logo" aria-hidden="true"></span>Repair &amp; Return</div></div>';
+  if(!S.me){
+    app.dataset.screen='home';
+    $('#top').innerHTML=brand;
+    $('#view').innerHTML=banner()+viewLogin();
+    $('#nav').innerHTML='';$('#nav').style.display='none';
+    return;
+  }
+  $('#nav').style.display='';
+  app.dataset.screen=S.screen;
+  const h=HEADS[S.screen];
+  $('#top').innerHTML=brand+(h?`<div class="pagehead"><h1>${h[0]}</h1><p>${h[1]}</p></div>`:'');
+  $('#view').innerHTML=banner()+VIEWS[S.screen]();
+  const cur=S.screen==='done'?'repair':S.screen;
+  $('#nav').innerHTML=NAV.customer.map(([k,l,ic])=>`
+    <button onclick="go('${k}')" ${cur===k?'aria-current="page"':''}>
+      <svg viewBox="0 0 24 24" aria-hidden="true">${ICON[ic]}</svg>${l}</button>`).join('');
+}
+try{const u=localStorage.getItem(UKEY);if(u)S.me=JSON.parse(u)}catch(e){}
+render();
+if(S.me)refresh();
+try{const es=new EventSource(API+'/api/events');es.onmessage=()=>refresh()}catch(e){}
+setInterval(refresh,4000);
+window.addEventListener('focus',refresh);
+
+</script>
+</body>
+</html>
